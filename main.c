@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <ctype.h>
 
 #include "list.h"
 
@@ -23,21 +24,18 @@ void file_to_LL(FILE *datafile) {
     //check if int
     //if int, add to linked list
     char items[126];
-	const char * spc = " \n\t";
-	char* tmp;
-	char* word;
-	int length;
-	int i;
-	int check;
-	int addToList;
 	struct node * head = (struct node *) malloc(sizeof(struct node));
 	//create first node in memory
 	while(fgets(items,126,datafile)!= NULL) {
 	        //printf("Reading line, word: %s\n",items);
+		const char * spc = " \n\t";
+		char* tmp;
+		char* word;
 		for(word=strtok_r(items,spc,&tmp); word!=NULL; word=strtok_r(NULL,spc,&tmp)) {
-			length = strlen(word);
-			i=0;
-			check=1;
+			int length = strlen(word);
+			int i = 0;
+			int check = 1;
+
 			if (word[0]=='-') i = 1; //taking care of negative integers
 			for(;i<length;i++) {
 				if(!isdigit((int)word[i])) {
@@ -46,7 +44,7 @@ void file_to_LL(FILE *datafile) {
 				}
 			}
 			if(check) { //check=1 -> all characters are digits
-				addToList = atoi(word);
+				int addToList = atoi(word);
 				list_insert(addToList, &head);
 				//this calls to list.c
 			}

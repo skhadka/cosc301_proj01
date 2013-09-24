@@ -2,30 +2,20 @@
 #include <stdlib.h>
 #include "list.h"
 
-/* your list function definitions */
-
-/*struct node {
-	int integer;
-	struct node *next;
-}; 
-//defined in list.h
-*/
-
-
 void list_insert(int num, struct node **head) {
 	//put num in head in sorted order
 	struct node * newnode = malloc(sizeof(struct node));
 	newnode->integer = num;
-	struct node *trial = *head;
-	if (trial==NULL) {//empty initialize
-			newnode->next = trial;
+
+	if (*head==NULL) {//empty initialize
+			newnode->next = *head;
 			*head = newnode;
 			return;
 	} 
-
-	struct node *previous = NULL;
-
+	struct node *previous;
+	struct node *trial = *head;
 	while(trial!=NULL) {
+		//previous = NULL;
 		if ((num < (trial->integer)) && previous==NULL) {//add least no. to the beginning of the list so update head
 			newnode->next = trial;
 			*head = newnode;
@@ -53,9 +43,8 @@ void list_print(struct node **head) {
 }
 
 void list_clear(struct node * head) {
-	struct node * trial;
 	while(head!=NULL) {
-		trial = head;
+		struct node * trial = head;
 		head = head->next;
 		free(trial);	
 	}
