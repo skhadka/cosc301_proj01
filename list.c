@@ -13,12 +13,13 @@ void list_insert(int num, struct node **head) {
 			return;
 	} 
 	struct node *previous;
+	int p = 0;
 	struct node *trial = *head;
 	while(trial!=NULL) {
-		//previous = NULL;
-		if ((num < (trial->integer)) && previous==NULL) {//add least no. to the beginning of the list so update head
+		if ((num < (trial->integer)) && p==0) {//add least no. to the beginning of the list so update head
 			newnode->next = trial;
 			*head = newnode;
+			p = 1; //change p after adding to the beginning of the list
 			return;
 		}
 		

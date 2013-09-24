@@ -95,10 +95,6 @@ int main(int argc, char **argv) {
      * whether it's stdin or a "real" file.
      */
 
-
-
-
-
     fclose(datafile);
     return 0;
 }
