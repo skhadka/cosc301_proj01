@@ -52,7 +52,8 @@ void file_to_LL(FILE *datafile) {
 			}
 		}
 	}
-	list_print(&head);            
+	list_print(&head); 
+	list_clear(head);           
 }
 
 

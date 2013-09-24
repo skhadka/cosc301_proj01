@@ -52,3 +52,13 @@ void list_print(struct node **head) {
 	}
 }
 
+void list_clear(struct node * head) {
+	struct node * trial;
+	while(head!=NULL) {
+		trial = head;
+		head = head->next;
+		free(trial);	
+	}
+}
+
+

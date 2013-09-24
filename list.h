@@ -12,5 +12,6 @@ struct node{
 
 void list_insert(int, struct node **);
 void list_print(struct node **);
+void list_clear(struct node*);
 
 #endif // __LIST_H__
