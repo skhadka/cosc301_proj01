@@ -56,6 +56,10 @@ void file_to_LL(FILE *datafile) {
 
 
 int main(int argc, char **argv) {
+	
+	//int who = RUSAGE_SELF;
+	//struct rusage rr;
+
     FILE *datafile = NULL;
     /* find out how we got invoked and deal with it */
     switch (argc) {
@@ -80,14 +84,16 @@ int main(int argc, char **argv) {
             break;
 
         default:
-            perror("Please enter correct number of arguments."); //Carrie added
+            perror("Please enter correct number of arguments.");
+		exit(-1);
+		break;
             /* more than two arguments?  throw hands up in resignation */
 
+	//int get = getrusage(who,&rr);
+	//if (!get) perror
 		usage(argv[0]);
 		//add call to file_to_LL?
 		//add getrusage thing?
-
-
     }
 
     /* 

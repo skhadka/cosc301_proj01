@@ -28,6 +28,7 @@ void list_insert(int num, struct node **head) {
 			previous->next = newnode;
 			return;
 		}
+	p = 1;
 	previous = trial;
 	trial = trial->next;
 	}
@@ -41,6 +42,7 @@ void list_print(struct node **head) {
 		printf("\n%d", current->integer);
 		current = current->next;
 	}
+	printf("\n\n");
 }
 
 void list_clear(struct node * head) {
