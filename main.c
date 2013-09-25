@@ -11,6 +11,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <ctype.h>
+#include <time.h>
 
 #include "list.h"
 
@@ -92,11 +93,10 @@ int main(int argc, char **argv) {
      * whether it's stdin or a "real" file.
      */
     fclose(datafile);
-    struct rusage *st = &rr;	
-    getrusage(who,st);
+    getrusage(who,&rr);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	printf("\nUser Time: %06ld (micro s)",st->ru_utime.tv_usec);
-	printf("\nSystem Time: %06ld (micro s)\n",st->ru_stime.tv_usec);
+	printf("\nUser Time: %ld.%06ld\n", rr.ru_utime.tv_sec,rr.ru_utime.tv_usec);
+	printf("\nSystem Time: %ld.%06ld\n", rr.ru_stime.tv_sec, rr.ru_stime.tv_usec);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");		
     return 0;
 }
