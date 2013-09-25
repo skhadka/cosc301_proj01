@@ -1,3 +1,8 @@
+/*
+  Shreeya Khadka and Carrie Burgess
+  Project 1: 09/25/13
+ */
+
 #ifndef __LIST_H__
 #define __LIST_H__
 

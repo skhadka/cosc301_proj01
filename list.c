@@ -1,3 +1,6 @@
+/*Shreeya Khadka and Carrie Burgess
+09/25/13*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
@@ -6,13 +9,15 @@ void list_insert(int num, struct node **head) {
 	//put num in head in sorted order
 	struct node * newnode = malloc(sizeof(struct node));
 	newnode->integer = num;
+	newnode->next = NULL; //NEVER EVER FORGET TO DO THIS!!!!!!!!!!!!
+	//note: Hours of toil were put forth because of the lack of this statement.
 
 	if (*head==NULL) {//empty initialize
 			newnode->next = *head;
 			*head = newnode;
 			return;
 	} 
-	struct node *previous;
+	struct node *previous=NULL;
 	int p = 0;
 	struct node *trial = *head;
 	while(trial!=NULL) {
@@ -38,6 +43,8 @@ void list_insert(int num, struct node **head) {
 
 void list_print(struct node **head) {
 	struct node * current = *head;
+	printf("\n\nInput Integer Values:\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~\n");
 	while(current!=NULL) {
 		printf("\n%d", current->integer);
 		current = current->next;

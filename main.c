@@ -24,10 +24,8 @@ void file_to_LL(FILE *datafile) {
     //check if int
     //if int, add to linked list
     char items[126];
-	struct node * head = (struct node *) malloc(sizeof(struct node));
-	//create first node in memory
+	struct node * head = NULL;
 	while(fgets(items,126,datafile)!= NULL) {
-	        //printf("Reading line, word: %s\n",items);
 		const char * spc = " \n\t";
 		char* tmp;
 		char* word;
@@ -46,7 +44,6 @@ void file_to_LL(FILE *datafile) {
 			if(check) { //check=1 -> all characters are digits
 				int addToList = atoi(word);
 				list_insert(addToList, &head);
-				//this calls to list.c
 			}
 		}
 	}
@@ -57,8 +54,8 @@ void file_to_LL(FILE *datafile) {
 
 int main(int argc, char **argv) {
 	
-	//int who = RUSAGE_SELF;
-	//struct rusage rr;
+	int who = RUSAGE_SELF;
+	struct rusage rr;
 
     FILE *datafile = NULL;
     /* find out how we got invoked and deal with it */
@@ -66,13 +63,11 @@ int main(int argc, char **argv) {
         case 1:
             /* only one program argument (the program name) */
             /* just equate stdin with our datafile */
-	    //printf("case1: reading stdin\n");
             datafile = stdin;
 	    file_to_LL(datafile); //read stdin and put in in LL
             break;
 
         case 2:
-	    //printf("case2: opening file\n");
             /* two arguments: program name and input file */
             /* open the file, assign to datafile */
             datafile = fopen(argv[1], "r");
@@ -84,24 +79,25 @@ int main(int argc, char **argv) {
             break;
 
         default:
-            perror("Please enter correct number of arguments.");
+            perror("Please enter correct number of arguments.  For some reason, this is a");
 		exit(-1);
 		break;
+		
             /* more than two arguments?  throw hands up in resignation */
-
-	//int get = getrusage(who,&rr);
-	//if (!get) perror
 		usage(argv[0]);
-		//add call to file_to_LL?
-		//add getrusage thing?
     }
 
     /* 
      * you should be able to just read from datafile regardless 
      * whether it's stdin or a "real" file.
      */
-
     fclose(datafile);
+    struct rusage *st = &rr;	
+    getrusage(who,st);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	printf("\nUser Time: %06ld (micro s)",st->ru_utime.tv_usec);
+	printf("\nSystem Time: %06ld (micro s)\n",st->ru_stime.tv_usec);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");		
     return 0;
 }
 
